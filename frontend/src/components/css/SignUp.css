@@ -1,0 +1,99 @@
+.min-h-screen {
+  min-height: 100vh;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-gray-50 {
+  background-color: #f9fafb;
+}
+
+.py-12 {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
+  width: 100%; /* Added this */
+  margin: 0 auto; /* Added this */
+}
+
+.w-full {
+  width: 100%; /* Changed from 10% to 100% */
+}
+
+/* Rest of the styles remain the same */
+
+/* Form container styles - Added these */
+.form-container {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px; /* Added max-width */
+  margin: 0 auto;
+}
+
+/* Input container styles - Added these */
+.input-container {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+input, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+/* Button styles - Updated */
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: all 0.2s;
+  background-color: #4f46e5;
+  color: white;
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #4338ca;
+}
+
+.link-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.link-container a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.link-container a:hover {
+  text-decoration: underline;
+}
