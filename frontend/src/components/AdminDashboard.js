@@ -179,7 +179,7 @@ const AdminDashboard = () => {
     <div className="dashboard-container">
       <div className="app-container">
         <div className="header">
-          <h1>Product Management System</h1>
+          <h1>Inventory Management System</h1>
           <button className="logout-btn" onClick={handleLogout}>
             Logout
           </button>
@@ -191,7 +191,7 @@ const AdminDashboard = () => {
               <FaBox />
             </div>
             <div className="stat-content">
-              <h3>Total Products</h3>
+              <h3>Total Inventory</h3>
               <p>{statistics.totalProducts}</p>
             </div>
           </div>

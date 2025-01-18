@@ -19,6 +19,9 @@ const UserDashboard = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [showFilters, setShowFilters] = useState(false);
   const [showWishlist, setShowWishlist] = useState(false);
+  const [showOrderModal, setShowOrderModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [orderQuantity, setOrderQuantity] = useState(1);
 
   useEffect(() => {
     fetchProducts();
@@ -147,11 +150,42 @@ const UserDashboard = () => {
     navigate('/login');
   };
 
+  const handleOrder = async () => {
+    if (!selectedProduct || orderQuantity <= 0 || orderQuantity > selectedProduct.quantity) {
+      alert("Invalid order quantity!");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/api/orders/", {
+        product_id: selectedProduct.id,
+        quantity: orderQuantity,
+      });
+
+      if (response.status === 201) {
+        alert("Order placed successfully!");
+        setShowOrderModal(false);
+        setSelectedProduct(null);
+        setOrderQuantity(1);
+        fetchProducts(); // Refresh products to update quantities
+      }
+    } catch (error) {
+      console.error("Error placing order:", error);
+      alert("Failed to place order. Please try again.");
+    }
+  };
+
+  const openOrderModal = (product) => {
+    setSelectedProduct(product);
+    setOrderQuantity(1);
+    setShowOrderModal(true);
+  };
+
   return (
     <div className="dashboard-container">
       <div className="app-container">
         <div className="header">
-          <h1>Product Catalog</h1>
+          <h1>Inventory Catalog</h1>
           <button className="logout-btn" onClick={handleLogout}>
             Logout
           </button>
@@ -271,10 +305,43 @@ const UserDashboard = () => {
                     ? "Remove from Wishlist"
                     : "Add to Wishlist"}
                 </button>
+                <button
+                  className="order-btn"
+                  onClick={() => openOrderModal(product)}
+                  disabled={product.quantity === 0}
+                >
+                  {product.quantity === 0 ? "Out of Stock" : "Order Now"}
+                </button>
               </div>
             </div>
           ))}
         </div>
+
+        {showOrderModal && selectedProduct && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <h2>Place Order</h2>
+              <p>Product: {selectedProduct.name}</p>
+              <p>Price: ${selectedProduct.price}</p>
+              <p>Available Quantity: {selectedProduct.quantity}</p>
+              <div className="quantity-input">
+                <label>Order Quantity:</label>
+                <input
+                  type="number"
+                  min="1"
+                  max={selectedProduct.quantity}
+                  value={orderQuantity}
+                  onChange={(e) => setOrderQuantity(parseInt(e.target.value))}
+                />
+              </div>
+              <p>Total Price: ${(selectedProduct.price * orderQuantity).toFixed(2)}</p>
+              <div className="modal-actions">
+                <button onClick={handleOrder}>Confirm Order</button>
+                <button onClick={() => setShowOrderModal(false)}>Cancel</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
