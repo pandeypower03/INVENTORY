@@ -232,15 +232,19 @@ const AdminDashboard = () => {
           <div className="form-grid">
             <div className="form-column">
               <div className="form-group">
+                <label>Product Name</label>
                 <input
                   type="text"
-                  placeholder="Product Name"
+                  placeholder="Enter product name"
                   value={newProduct.name}
                   onChange={(e) => handleInputChange("name", e.target.value)}
                 />
+              </div>
+              <div className="form-group">
+                <label>SKU</label>
                 <input
                   type="text"
-                  placeholder="SKU"
+                  placeholder="Enter SKU"
                   value={newProduct.sku}
                   onChange={(e) => handleInputChange("sku", e.target.value)}
                 />
@@ -249,15 +253,20 @@ const AdminDashboard = () => {
 
             <div className="form-column">
               <div className="form-group">
+                <label>Quantity</label>
                 <input
                   type="number"
-                  placeholder="Quantity"
+                  placeholder="Enter quantity"
                   value={newProduct.quantity}
                   onChange={(e) => handleInputChange("quantity", e.target.value)}
                 />
+              </div>
+              <div className="form-group">
+                <label>Price ($)</label>
                 <input
                   type="number"
-                  placeholder="Price"
+                  step="0.01"
+                  placeholder="Enter price"
                   value={newProduct.price}
                   onChange={(e) => handleInputChange("price", e.target.value)}
                 />
@@ -266,23 +275,39 @@ const AdminDashboard = () => {
 
             <div className="form-column">
               <div className="form-group">
+                <label>Supplier</label>
                 <input
                   type="text"
-                  placeholder="Supplier"
+                  placeholder="Enter supplier name"
                   value={newProduct.supplier}
                   onChange={(e) => handleInputChange("supplier", e.target.value)}
                 />
+              </div>
+              <div className="form-group">
+                <label>Expiration Date</label>
                 <input
                   type="date"
                   value={newProduct.expiration_date}
                   onChange={(e) => handleInputChange("expiration_date", e.target.value)}
                 />
               </div>
+              <div className="form-group">
+                <label>Threshold</label>
+                <input
+                  type="number"
+                  placeholder="Enter stock threshold"
+                  value={newProduct.threshold}
+                  onChange={(e) => handleInputChange("threshold", e.target.value)}
+                />
+              </div>
             </div>
           </div>
 
           <div className="form-actions">
-            <button className="add-btn" onClick={handleAddProduct}>
+            <button 
+              className="add-btn" 
+              onClick={selectedProduct ? handleUpdateProduct : handleAddProduct}
+            >
               {selectedProduct ? "Update Product" : "Add Product"}
             </button>
             {selectedProduct && (
